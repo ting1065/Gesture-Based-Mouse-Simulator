@@ -33,10 +33,10 @@ def perform_action(gesture_class, confidence=1.0):
     elif action_label == 'right':
         pyautogui.move(10, 0)  # Move cursor right
     elif action_label == 'thumb up':
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.click()  # Perform left click
     elif action_label == 'thumb down':
-        time.sleep(0.5)
+        time.sleep(0.1)
         pyautogui.click(button='right')  # Perform right click
 
 
