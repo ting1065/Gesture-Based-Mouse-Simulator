@@ -1,4 +1,6 @@
 # GMSAE
+Hand gesutre videos: https://drive.google.com/drive/folders/1JxRKFOqm2DrPmGaTbgrSw-gwwcGvdv-M?usp=sharing 
+
 ExtractData: Extract mediapipe data to create a dataset
 
 CnnTrain: Train CNN model
