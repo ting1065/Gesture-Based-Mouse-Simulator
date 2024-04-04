@@ -15,29 +15,47 @@ hands = mp_hands.Hands(static_image_mode=False, max_num_hands=1, min_detection_c
 mp_drawing = mp.solutions.drawing_utils  # Tool for drawing hand keypoints
 
 # Define gesture category labels
-labels = ['down', 'left', 'right', 'thumb down', 'thumb up', 'up']
+labels = ['down', 'left', 'pause', 'right', 'rock', 'thumb down', 'thumb up', 'up']
+
+# Adding a flag to keep track of pause state
+is_paused = False
 
 
 def perform_action(gesture_class, confidence=1.0):
-    """Perform actions based on gesture class and confidence."""
+    global is_paused
     action_label = labels[gesture_class]
     print(f"Performing action: {action_label}, Confidence: {confidence:.2f}")
+
+    if is_paused and action_label != 'pause':
+        return  # If paused, ignore other actions except for "pause" to toggle pause state
 
     # Execute corresponding actions based on gesture class
     if action_label == 'up':
         pyautogui.move(0, -10)  # Move cursor up
+        # time.sleep(0.1)
     elif action_label == 'down':
         pyautogui.move(0, 10)  # Move cursor down
+        # time.sleep(0.1)
     elif action_label == 'left':
         pyautogui.move(-10, 0)  # Move cursor left
+        # time.sleep(0.1)
     elif action_label == 'right':
         pyautogui.move(10, 0)  # Move cursor right
+        # time.sleep(0.1)
     elif action_label == 'thumb up':
-        time.sleep(0.1)
         pyautogui.click()  # Perform left click
+        time.sleep(1)
     elif action_label == 'thumb down':
-        time.sleep(0.1)
         pyautogui.click(button='right')  # Perform right click
+        time.sleep(1)
+    elif action_label == 'rock':
+        pyautogui.click()  # Perform left click
+        pyautogui.click()
+        time.sleep(1)
+    elif action_label == 'pause':
+        is_paused = not is_paused  # Toggle pause state
+        print(f"Gesture recognition paused: {is_paused}")
+        time.sleep(1)  # Add a delay after toggling pause state
 
 
 cap = cv2.VideoCapture(0)
@@ -68,7 +86,7 @@ while cap.isOpened():
             cv2.putText(image, gesture_text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
             # If confidence is above a certain threshold, perform the corresponding action
-            if confidence > 0.5:
+            if confidence > 0.4:
                 perform_action(gesture_class, confidence)
 
     # Convert image from RGB back to BGR for display
