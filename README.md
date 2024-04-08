@@ -25,6 +25,8 @@ mediapipe                    0.9.1.0
 keras                        2.12.0
 numpy                        1.23.5
 PyAutoGUI                    0.9.54
+opencv-contrib-python        4.9.0.80
+opencv-python-headless       4.9.0.80
 
 Fix Intel MKL FATAL ERROR: Cannot load libmkl_core.dylib. while running pyspark in MacOs M1:
 conda install -c anaconda mkl
