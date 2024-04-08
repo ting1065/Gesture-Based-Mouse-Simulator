@@ -20,16 +20,56 @@ labels = ['down', 'left', 'pause', 'right', 'rock', 'thumb down', 'thumb up', 'u
 # Adding a flag to keep track of pause state
 is_paused = False
 
+# record the number of click related gestures recently captured 
+thumb_up_count = 0
+thumb_down_count = 0
+rock_count = 0
+
+# clear the count of click related gestures
+def clear_count():
+    global thumb_up_count, thumb_down_count, rock_count
+    thumb_up_count = 0
+    thumb_down_count = 0
+    rock_count = 0
+
 
 def perform_action(gesture_class, confidence=1.0):
-    global is_paused
+    global is_paused, thumb_up_count, thumb_down_count, rock_count
     action_label = labels[gesture_class]
     print(f"Performing action: {action_label}, Confidence: {confidence:.2f}")
 
     if is_paused and action_label != 'pause':
         return  # If paused, ignore other actions except for "pause" to toggle pause state
+    
+    # Execute click-related actions based on gesture class
+    if action_label == 'thumb up':
+        if thumb_up_count == 3: # Perform left click if thumb up gesture is detected 3 times in a row in 0.75 seconds
+            pyautogui.click()
+            clear_count()
+            time.sleep(1)
+        else:
+            thumb_up_count += 1
+            time.sleep(0.25)
+    elif action_label == 'thumb down':
+        if thumb_down_count == 3: # Perform right click if thumb down gesture is detected 3 times in a row in 0.75 seconds
+            pyautogui.click(button='right') 
+            time.sleep(1)
+        else:
+            thumb_down_count += 1
+            time.sleep(0.25)
+    elif action_label == 'rock':
+        if rock_count == 3: # Perform double click if rock gesture is detected 3 times in a row in 0.75 seconds
+            pyautogui.click()
+            pyautogui.click()
+            clear_count()
+            time.sleep(1)
+        else:
+            rock_count += 1
+            time.sleep(0.25)
+    else:
+        clear_count()
 
-    # Execute corresponding actions based on gesture class
+    # Execute other actions based on gesture class
     if action_label == 'up':
         pyautogui.move(0, -10)  # Move cursor up
         # time.sleep(0.1)
@@ -42,16 +82,6 @@ def perform_action(gesture_class, confidence=1.0):
     elif action_label == 'right':
         pyautogui.move(10, 0)  # Move cursor right
         # time.sleep(0.1)
-    elif action_label == 'thumb up':
-        pyautogui.click()  # Perform left click
-        time.sleep(1)
-    elif action_label == 'thumb down':
-        pyautogui.click(button='right')  # Perform right click
-        time.sleep(1)
-    elif action_label == 'rock':
-        pyautogui.click()  # Perform left click
-        pyautogui.click()
-        time.sleep(1)
     elif action_label == 'pause':
         is_paused = not is_paused  # Toggle pause state
         print(f"Gesture recognition paused: {is_paused}")
@@ -86,7 +116,7 @@ while cap.isOpened():
             cv2.putText(image, gesture_text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 0, 255), 2)
 
             # If confidence is above a certain threshold, perform the corresponding action
-            if confidence > 0.4:
+            if confidence > 0.99:
                 perform_action(gesture_class, confidence)
 
     # Convert image from RGB back to BGR for display
