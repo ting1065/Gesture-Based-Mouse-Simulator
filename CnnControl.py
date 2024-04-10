@@ -16,6 +16,9 @@ mp_drawing = mp.solutions.drawing_utils  # Tool for drawing hand keypoints
 
 # Define gesture category labels
 labels = ['down', 'left', 'pause', 'right', 'rock', 'thumb down', 'thumb up', 'up']
+labels_to_operations = {'down': 'Move cursor down', 'left': 'Move cursor left', 'pause': 'Toggle pause state',
+                        'right': 'Move cursor right', 'rock': 'Double left click', 'thumb down': 'Right click',
+                        'thumb up': 'Left click', 'up': 'Move cursor up'}
 
 # Adding a flag to keep track of pause state
 is_paused = False
@@ -36,7 +39,7 @@ def clear_count():
 def perform_action(gesture_class, confidence=1.0):
     global is_paused, thumb_up_count, thumb_down_count, rock_count
     action_label = labels[gesture_class]
-    print(f"Performing action: {action_label}, Confidence: {confidence:.2f}")
+    print(f"Detected action: {action_label}, Confidence: {confidence:.2f}")
 
     if is_paused and action_label != 'pause':
         return  # If paused, ignore other actions except for "pause" to toggle pause state
@@ -44,31 +47,39 @@ def perform_action(gesture_class, confidence=1.0):
     # Execute click-related actions based on gesture class
     if action_label == 'thumb up':
         if thumb_up_count == 3: # Perform left click if thumb up gesture is detected 3 times in a row in 0.75 seconds
+            print(f"Conduct operation: {labels_to_operations[action_label]}")
             pyautogui.click()
             clear_count()
             time.sleep(1)
         else:
             thumb_up_count += 1
             time.sleep(0.25)
+        return
     elif action_label == 'thumb down':
         if thumb_down_count == 3: # Perform right click if thumb down gesture is detected 3 times in a row in 0.75 seconds
+            print(f"Conduct operation: {labels_to_operations[action_label]}")
             pyautogui.click(button='right')
             clear_count() 
             time.sleep(1)
         else:
             thumb_down_count += 1
             time.sleep(0.25)
+        return
     elif action_label == 'rock':
         if rock_count == 3: # Perform double left click if rock gesture is detected 3 times in a row in 0.75 seconds
+            print(f"Conduct operation: {labels_to_operations[action_label]}")
             pyautogui.doubleClick(interval=0.02, button='left')
             clear_count()
             time.sleep(1)
         else:
             rock_count += 1
             time.sleep(0.25)
-    else:
-        clear_count()
-
+        return
+    
+    # Clear the count of click and conduct direction operation
+    clear_count()
+    print(f"Conduct operation: {labels_to_operations[action_label]}")
+    
     # Execute other actions based on gesture class
     if action_label == 'up':
         pyautogui.move(0, -10)  # Move cursor up
