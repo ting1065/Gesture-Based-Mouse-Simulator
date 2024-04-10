@@ -52,15 +52,15 @@ def perform_action(gesture_class, confidence=1.0):
             time.sleep(0.25)
     elif action_label == 'thumb down':
         if thumb_down_count == 3: # Perform right click if thumb down gesture is detected 3 times in a row in 0.75 seconds
-            pyautogui.click(button='right') 
+            pyautogui.click(button='right')
+            clear_count() 
             time.sleep(1)
         else:
             thumb_down_count += 1
             time.sleep(0.25)
     elif action_label == 'rock':
-        if rock_count == 3: # Perform double click if rock gesture is detected 3 times in a row in 0.75 seconds
-            pyautogui.click()
-            pyautogui.click()
+        if rock_count == 3: # Perform double left click if rock gesture is detected 3 times in a row in 0.75 seconds
+            pyautogui.doubleClick(interval=0.02, button='left')
             clear_count()
             time.sleep(1)
         else:
@@ -88,7 +88,7 @@ def perform_action(gesture_class, confidence=1.0):
         time.sleep(1)  # Add a delay after toggling pause state
 
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(1)
 
 while cap.isOpened():
     success, image = cap.read()
