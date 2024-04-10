@@ -124,7 +124,7 @@ def perform_action(gesture_class, confidence=1.0):
     previous_label = action_label
 
 
-cap = cv2.VideoCapture(1)
+cap = cv2.VideoCapture(0)
 
 while cap.isOpened():
     success, image = cap.read()
