@@ -1,11 +1,12 @@
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
-from tensorflow.keras.utils import to_categorical
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Conv2D, Flatten, MaxPooling2D, Dropout
-from tensorflow.keras.optimizers import Adam
-from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow import keras
+from keras.utils import to_categorical
+from keras.models import Sequential
+from keras.layers import Dense, Conv2D, Flatten, MaxPooling2D, Dropout
+from keras.optimizers import Adam
+from keras.callbacks import EarlyStopping
 import matplotlib.pyplot as plt
 
 # Load the data
