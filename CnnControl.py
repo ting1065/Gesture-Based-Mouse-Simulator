@@ -1,7 +1,8 @@
 import cv2
 import mediapipe as mp
 import numpy as np
-from tensorflow.keras.models import load_model
+from tensorflow import keras
+from keras.models import load_model
 import pyautogui
 import time
 
@@ -24,7 +25,7 @@ labels_to_operations = {'down': 'Move cursor down', 'left': 'Move cursor left', 
                         'thumb up': 'Left click', 'up': 'Move cursor up'}
 
 # set up cursor speed control variables
-cursor_speeds = [2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 10, 10, 10, 10, 20, 20, 50, 50]
+cursor_speeds = [2, 2, 2, 2, 2, 2, 2, 2, 2, 5, 5, 5, 5, 5, 10, 10, 10, 10]
 cursor_speed_index = 0
 max_speed_index = len(cursor_speeds) - 1
 previous_label = None
