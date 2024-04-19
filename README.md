@@ -64,7 +64,7 @@ conda install -c anaconda mkl
 
 ## Demo
 
-Demo video at [YouTube](https://youtu.be/osr-ST4y-Bw) showing using hand gestures to open a document and play Minesweeper.
+Demo video at [YouTube](https://youtu.be/DVWB55--fL4) showing using hand gestures to open a document and play Minesweeper.
 
 ## Dataset for training
 
