@@ -1,17 +1,17 @@
-# Gesture-Based Mouse Simulator for Accessibility and Ergonomics (GMSAE)
+# Gesture-Based Mouse Simulator
 ## Introduction
-The GMSAE project aims to develop an application that utilizes MediaPipe combined with CNN model training, to identify and recognize a user’s hand gestures through a computer webcam, and execute corresponding operations of a mouse in the computer.
-  
-This application is designed to assist users who experience hand tremors and are unable to precisely control a mouse, such as individuals with Parkinson's disease or other reasons and to offer an ergonomic alternative to prevent repetitive strain injuries such as mouse arm syndrome.
+The GMSAE project aims to develop an application that enables computer users to remotely control the cursor using hand gestures, utilizing CNN(Convolutional Neural Network), OpenCV, TensorFlow, Keras, Scikit-learn, MediaPipe and PyAutoGUI.
+
+The functionality to control mouse movements in four directions, single left-click, double left-click, and single right-click has successfully been implemented.
 
 ## Table of Contents
 
-- [Requirements](#requirements)
-- [Usage](#usage)
-- [Demo](#demo)
-- [Dataset for training](#dataset-for-training)
+- [Configuration](#Configuration)
+- [Core Files](#Core-Files)
+- [Demo](#Demo)
+- [Dataset](#dataset)
 
-## Requirements
+## Configuration
 
 Verified Windows Library Versions:
 ```bash
@@ -44,7 +44,7 @@ Note: to fix Intel MKL FATAL ERROR: Cannot load libmkl_core.dylib. while running
 conda install -c anaconda mkl
 ```
 
-## Usage
+## Core Files
 
 - Extract data from videos of different hand gestures using MediaPipe to create a dataset:
 
@@ -64,16 +64,8 @@ conda install -c anaconda mkl
 
 ## Demo
 
-Demo video at [YouTube](https://youtu.be/DVWB55--fL4) showing using hand gestures to open a document and play Minesweeper.
+Demo video at [YouTube](https://youtu.be/DVWB55--fL4) showing using hand gestures to open document and play Minesweeper.
 
-## Dataset for training
+## Dataset
 
-Hand gesture videos: https://drive.google.com/drive/folders/1JxRKFOqm2DrPmGaTbgrSw-gwwcGvdv-M?usp=sharing 
-
-
-
-
-
-
-
-
+Hand gesture videos: [Google Drive](https://drive.google.com/drive/folders/1JxRKFOqm2DrPmGaTbgrSw-gwwcGvdv-M?usp=sharing)
