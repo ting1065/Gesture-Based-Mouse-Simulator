@@ -1,6 +1,6 @@
 # Gesture-Based Mouse Simulator
 ## Introduction
-The GMSAE project aims to develop an application that enables computer users to remotely control the cursor using hand gestures, utilizing CNN(Convolutional Neural Network), OpenCV, TensorFlow, Keras, Scikit-learn, MediaPipe and PyAutoGUI.
+The project aims to develop an application that enables computer users to remotely control the cursor using hand gestures, utilizing CNN(Convolutional Neural Network), OpenCV, TensorFlow, Keras, Scikit-learn, MediaPipe and PyAutoGUI.
 
 The functionality to control mouse movements in four directions, single left-click, double left-click, and single right-click has successfully been implemented.
 
